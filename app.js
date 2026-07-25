@@ -41,7 +41,7 @@ function renderGallery() {
   grid.innerHTML = cardsData
     .map(
       (c, i) => `
-    <div class="flip-card" style="--card-accent:${escapeHtml(c.accent || "#a8763b")}" data-index="${i}">
+    <div class="flip-card" style="--card-accent:${escapeHtml(c.accent || "#6d28d9")}" data-index="${i}">
       <span class="plate-number">Plate&nbsp;No.&nbsp;${String(i + 1).padStart(2, "0")}</span>
       <button class="card-expand-btn" data-index="${i}" aria-label="View details" type="button">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
