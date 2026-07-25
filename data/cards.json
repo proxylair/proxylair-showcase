@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "cards": [
+    {
+      "id": "ashfall-sentinel",
+      "image": "cards/ashfall-sentinel.svg",
+      "printImage": "cards/ashfall-sentinel-print.svg",
+      "title": "Ashfall Sentinel",
+      "game": "Fantasy TCG",
+      "style": "Cinematic · Ember foil",
+      "caption": "Placeholder sample -- swap in a real curated card via HIRO's Publish to Showcase step.",
+      "socialPostUrl": "",
+      "featured": true,
+      "accent": "#00e5ff"
+    },
+    {
+      "id": "wraithbloom",
+      "image": "cards/wraithbloom.svg",
+      "printImage": "cards/wraithbloom-print.svg",
+      "title": "Wraithbloom",
+      "game": "Fantasy TCG",
+      "style": "Ethereal · Violet gloss",
+      "caption": "Placeholder sample -- swap in a real curated card via HIRO's Publish to Showcase step.",
+      "socialPostUrl": "",
+      "featured": true,
+      "accent": "#ff3d9a"
+    },
+    {
+      "id": "stormcallers-oath",
+      "image": "cards/stormcallers-oath.svg",
+      "printImage": "cards/stormcallers-oath-print.svg",
+      "title": "Stormcaller's Oath",
+      "game": "Sci-fi TCG",
+      "style": "Dynamic · Amber finish",
+      "caption": "Placeholder sample -- swap in a real curated card via HIRO's Publish to Showcase step.",
+      "socialPostUrl": "",
+      "featured": true,
+      "accent": "#ffb84d"
+    },
+    {
+      "id": "verdant-hex",
+      "image": "cards/verdant-hex.svg",
+      "printImage": "cards/verdant-hex-print.svg",
+      "title": "Verdant Hex",
+      "game": "Fantasy TCG",
+      "style": "Organic · Emerald sheen",
+      "caption": "Placeholder sample -- swap in a real curated card via HIRO's Publish to Showcase step.",
+      "socialPostUrl": "",
+      "featured": false,
+      "accent": "#2dffb3"
+    }
+  ]
+}
