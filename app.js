@@ -22,7 +22,6 @@ Promise.all([
   .then(([cards, site]) => {
     cardsData = cards.cards || [];
     siteData = site;
-    renderHeroBackdrop();
     renderGallery();
     renderWatch();
     renderContact();
@@ -30,18 +29,6 @@ Promise.all([
     renderFooter();
   })
   .catch((err) => console.error("Failed to load showcase data:", err));
-
-// ---------- Hero ----------
-
-function renderHeroBackdrop() {
-  const featured = cardsData.filter((c) => c.featured);
-  const pool = featured.length ? featured : cardsData;
-  // Duplicated once so the CSS drift animation loops without a visible seam.
-  const looped = pool.concat(pool);
-  el("hero-backdrop").innerHTML = looped
-    .map((c) => `<img src="${escapeHtml(c.printImage || c.image)}" alt="" />`)
-    .join("");
-}
 
 // ---------- Gallery (flip cards) ----------
 
@@ -54,9 +41,10 @@ function renderGallery() {
   grid.innerHTML = cardsData
     .map(
       (c, i) => `
-    <div class="flip-card" style="--card-accent:${escapeHtml(c.accent || "#00e5ff")}" data-index="${i}">
+    <div class="flip-card" style="--card-accent:${escapeHtml(c.accent || "#a8763b")}" data-index="${i}">
+      <span class="plate-number">Plate&nbsp;No.&nbsp;${String(i + 1).padStart(2, "0")}</span>
       <button class="card-expand-btn" data-index="${i}" aria-label="View details" type="button">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
           <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
         </svg>
       </button>
@@ -90,16 +78,18 @@ function renderGallery() {
   grid.querySelectorAll(".card-expand-btn").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
-      openLightbox(cardsData[Number(btn.dataset.index)]);
+      const index = Number(btn.dataset.index);
+      openLightbox(cardsData[index], index);
     });
   });
 }
 
 // ---------- Lightbox (per-card detail + "watch the build") ----------
 
-function openLightbox(card) {
+function openLightbox(card, index) {
   el("lightbox-image").src = card.printImage || card.image;
   el("lightbox-image").alt = card.title;
+  el("lightbox-plate").textContent = `Plate No. ${String(index + 1).padStart(2, "0")}`;
   el("lightbox-title").textContent = card.title;
   el("lightbox-sub").textContent = `${card.game} · ${card.style}`;
   el("lightbox-caption").textContent = card.caption || "";

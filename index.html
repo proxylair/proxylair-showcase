@@ -7,8 +7,11 @@
   <meta name="description" content="Flat printed custom trading card proxies, built with care and shown here as art. ProxyLair — DM to start a build." />
   <meta property="og:title" content="ProxyLair" />
   <meta property="og:description" content="Custom printed TCG card proxies — gallery, process, and how to start a build." />
-  <meta name="theme-color" content="#05080b" />
+  <meta name="theme-color" content="#f7f2e9" />
   <link rel="icon" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -25,12 +28,13 @@
 
   <!-- ============ Hero ============ -->
   <section class="hero" id="top">
-    <div class="hero-backdrop" id="hero-backdrop"></div>
     <div class="hero-content">
-      <img class="hero-wordmark" src="assets/wordmark.png" alt="ProxyLair" />
-      <p class="hero-tagline">Custom trading card proxies — printed, laminated, cut, and sleeved by hand. Shown here as craft, not a catalog.</p>
+      <p class="hero-kicker">Custom Trading Card Proxies</p>
+      <h1 class="hero-headline">Every card,<br />held to the light.</h1>
+      <p class="hero-tagline">Printed, laminated, cut, and sleeved by hand — shown here as craft, not a catalog.</p>
       <a class="btn btn-primary" href="#gallery">See the work</a>
     </div>
+    <div class="hero-rule" aria-hidden="true"></div>
   </section>
 
   <!-- ============ Gallery ============ -->
@@ -106,6 +110,7 @@
     <div class="lightbox-panel">
       <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close">&times;</button>
       <div class="lightbox-image"><img id="lightbox-image" alt="" /></div>
+      <p class="lightbox-plate" id="lightbox-plate"></p>
       <div class="lightbox-title" id="lightbox-title"></div>
       <div class="lightbox-sub" id="lightbox-sub"></div>
       <p class="lightbox-caption" id="lightbox-caption"></p>
