@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="700" viewBox="0 0 500 700">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f1c26"/>
+      <stop offset="100%" stop-color="#0a131a"/>
+    </linearGradient>
+  </defs>
+  <rect width="500" height="700" fill="#020304"/>
+  <rect x="26" y="26" width="448" height="648"
+        rx="18" fill="url(#bg2)" stroke="#2dffb3" stroke-width="3"/>
+  <rect x="42" y="42" width="416" height="616"
+        rx="10" fill="none" stroke="#2dffb3" stroke-width="1" opacity="0.5"/>
+  <text x="50%" y="14%" text-anchor="middle" font-family="SFMono-Regular, Consolas, monospace"
+        font-size="16" fill="#2dffb3" letter-spacing="3" opacity="0.85">PROXYLAIR · PRINT PROOF</text>
+  <text x="50%" y="50%" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif"
+        font-size="30" font-weight="700" fill="#e8f6fb">Verdant Hex</text>
+  <text x="50%" y="88%" text-anchor="middle" font-family="SFMono-Regular, Consolas, monospace"
+        font-size="14" fill="#6f96a6" letter-spacing="1">Printed · Laminated · Cut · Sleeved</text>
+</svg>

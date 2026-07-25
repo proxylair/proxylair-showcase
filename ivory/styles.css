@@ -1,46 +1,35 @@
-/* ProxyLair public showcase (ADR-014) -- visual direction v3.
-   Black & white foundation (matches the wordmark's own black-on-white
-   identity) with a deliberate purple accent leading, and a restrained
-   touch of neon-glow reserved for a handful of interactive moments only
-   -- not the pervasive neon-everywhere of the original HIRO-derived
-   look. Structure/sections/interactions unchanged -- only palette and
-   header typeface change from the ivory version (kept at /ivory/). */
+/* ProxyLair public showcase (ADR-014) -- visual direction v2.
+   Warm gallery/boutique language: refined print-shop and museum-catalog
+   references (matted prints, plate numbers, a title-page rule) instead
+   of HIRO's internal-tool neon-console look. Structure/sections/
+   interactions unchanged from v1 -- only the visual language changes. */
 
 :root {
-  --bg: #ffffff;
-  --bg-alt: #f5f4f8;
-  --surface: #ffffff;
-  --surface-sunken: #efecf4;
+  --bg: #f7f2e9;
+  --bg-alt: #efe6d4;
+  --surface: #fffdf8;
+  --surface-sunken: #f1ebdd;
 
-  --ink: #131217;
-  --ink-soft: #38333f;
-  --ink-muted: #7d7787;
+  --ink: #2a2420;
+  --ink-soft: #4c4238;
+  --ink-muted: #8a7d6b;
 
-  --accent: #6d28d9;
-  --accent-deep: #4c1d95;
-  --accent-soft: rgba(109, 40, 217, 0.09);
+  --accent: #a8763b;
+  --accent-deep: #7d5424;
+  --accent-soft: rgba(168, 118, 59, 0.14);
 
-  /* Reserved for a handful of moments only (hover glows) -- a touch of
-     neon as a secondary accent, purple leads. */
-  --accent-neon: #c026f2;
-  --accent-neon-glow: rgba(192, 38, 242, 0.45);
+  --hairline: rgba(42, 36, 32, 0.12);
+  --hairline-strong: rgba(42, 36, 32, 0.26);
 
-  --hairline: rgba(19, 18, 23, 0.10);
-  --hairline-strong: rgba(19, 18, 23, 0.24);
-
-  --shadow-sm: 0 2px 10px rgba(19, 18, 23, 0.07);
-  --shadow-md: 0 14px 34px rgba(19, 18, 23, 0.11);
-  --shadow-lg: 0 28px 64px rgba(19, 18, 23, 0.16);
-  --shadow-glow: 0 0 0 1.5px var(--accent-neon), 0 8px 30px var(--accent-neon-glow);
+  --shadow-sm: 0 2px 10px rgba(42, 36, 32, 0.08);
+  --shadow-md: 0 14px 34px rgba(42, 36, 32, 0.13);
+  --shadow-lg: 0 28px 64px rgba(42, 36, 32, 0.18);
 
   --radius-lg: 14px;
   --radius-md: 8px;
   --radius-sm: 4px;
 
-  /* Header font: closest freely-available match to the wordmark's
-     high-contrast serif + small-caps body -- see the build notes for
-     what was ruled out (blackletter, Cinzel, IM Fell) and why. */
-  --serif: "Cormorant", Georgia, "Iowan Old Style", serif;
+  --serif: "Fraunces", Georgia, "Iowan Old Style", serif;
   --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
@@ -91,7 +80,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   align-items: center;
   justify-content: space-between;
   padding: 20px 32px;
-  background: rgba(255, 255, 255, 0.86);
+  background: rgba(247, 242, 233, 0.88);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--hairline);
 }
@@ -99,9 +88,10 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
 .nav-logo {
   height: 24px;
   /* Source asset is white-on-transparent (built for HIRO's dark UI) --
-     brightness(0) recolors it solid ink for this light background. */
+     brightness(0) recolors it solid ink for this light background
+     without needing a second brand asset. */
   filter: brightness(0) saturate(100%);
-  opacity: 0.94;
+  opacity: 0.92;
 }
 
 .nav-links {
@@ -143,19 +133,11 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
 
 .btn-primary {
   border-color: var(--accent);
-  color: #fbf8ff;
+  color: #fffaf0;
   background: var(--accent);
   box-shadow: var(--shadow-sm);
 }
-/* One of the deliberate "touch of neon" moments: the primary CTA's
-   hover state blooms with a soft neon-purple glow rather than just
-   darkening -- restrained everywhere else, but this is the button
-   asking someone to act, so it earns a little electricity. */
-.btn-primary:hover {
-  background: var(--accent-deep);
-  border-color: var(--accent-deep);
-  box-shadow: var(--shadow-glow);
-}
+.btn-primary:hover { background: var(--accent-deep); border-color: var(--accent-deep); box-shadow: var(--shadow-md); }
 
 /* ---------- Hero ---------- */
 
@@ -186,8 +168,8 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
 }
 
 .hero-headline {
-  font-size: clamp(42px, 7vw, 80px);
-  line-height: 1.05;
+  font-size: clamp(40px, 7vw, 76px);
+  line-height: 1.06;
   letter-spacing: -0.01em;
   margin: 0 0 26px;
 }
@@ -207,7 +189,6 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   height: 2px;
   background: var(--accent);
   border-radius: 2px;
-  box-shadow: 0 0 16px var(--accent-neon-glow);
 }
 
 /* ---------- Section shell ---------- */
@@ -250,8 +231,9 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
 }
 .flip-card.is-flipped .flip-card-inner { transform: rotateY(180deg); }
 
-/* Each face is a "matted print": a card-stock frame around the artwork
-   with the plaque text living on the mat below the image. */
+/* Each face is a "matted print": a warm card surface with generous
+   padding around the image and the plaque text living on the mat
+   below the artwork, not overlaid on top of it. */
 .flip-card-face {
   position: absolute;
   inset: 0;
@@ -265,13 +247,9 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   padding: 16px 16px 18px;
   transition: box-shadow 220ms ease, border-color 220ms ease;
 }
-/* Second deliberate touch of neon: on hover, the card's own accent
-   color (from its own art, not the site theme) takes over as a glow
-   ring -- this is where "a little electricity" belongs, on the art
-   itself, not the chrome around it. */
 .flip-card:hover .flip-card-face {
-  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 55%, var(--hairline-strong));
-  box-shadow: var(--shadow-lg), 0 0 26px color-mix(in srgb, var(--card-accent, var(--accent)) 35%, transparent);
+  box-shadow: var(--shadow-lg);
+  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 45%, var(--hairline-strong));
 }
 
 .flip-card-face img {
@@ -287,7 +265,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
 .flip-card-back { transform: rotateY(180deg); }
 
 .card-meta { flex-shrink: 0; padding-top: 12px; }
-.card-meta .title { font-family: var(--serif); font-weight: 600; font-size: 18px; margin: 0 0 3px; color: var(--ink); }
+.card-meta .title { font-family: var(--serif); font-weight: 600; font-size: 17px; margin: 0 0 3px; color: var(--ink); }
 .card-meta .sub { font-family: var(--sans); font-size: 12px; color: var(--ink-muted); letter-spacing: 0.01em; }
 
 .plate-number {
@@ -298,7 +276,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   font-family: var(--serif);
   font-style: italic;
   font-size: 12px;
-  color: var(--accent-deep);
+  color: var(--ink-soft);
   background: var(--bg);
   padding: 3px 12px;
   border: 1px solid var(--hairline-strong);
@@ -313,7 +291,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   width: 30px; height: 30px;
   border-radius: 999px;
   border: 1px solid var(--hairline-strong);
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 253, 248, 0.92);
   color: var(--ink-soft);
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
@@ -339,7 +317,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
 }
 .process-step {
   border: 1px solid var(--hairline);
-  background: var(--bg-alt);
+  background: var(--surface);
   border-radius: var(--radius-lg);
   padding: 28px 26px;
 }
@@ -371,7 +349,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--hairline);
-  background: var(--bg-alt);
+  background: var(--surface);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -436,7 +414,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background: rgba(10, 8, 14, 0.6);
+  background: rgba(30, 24, 18, 0.55);
   backdrop-filter: blur(3px);
 }
 .lightbox-overlay.hidden { display: none; }
@@ -459,7 +437,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   width: 32px; height: 32px;
   border-radius: 999px;
   border: 1px solid var(--hairline-strong);
-  background: var(--bg-alt);
+  background: var(--bg);
   color: var(--ink-soft);
   cursor: pointer;
   font-size: 18px;
@@ -474,7 +452,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   color: var(--accent);
   margin: 0 0 6px;
 }
-.lightbox-title { font-family: var(--serif); font-size: 22px; font-weight: 600; margin: 0 0 5px; }
+.lightbox-title { font-family: var(--serif); font-size: 21px; font-weight: 600; margin: 0 0 5px; }
 .lightbox-sub { font-family: var(--sans); font-size: 12.5px; color: var(--ink-muted); margin: 0 0 16px; }
 .lightbox-caption { font-size: 14.5px; color: var(--ink-soft); line-height: 1.65; margin: 0 0 20px; }
 
