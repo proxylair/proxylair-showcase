@@ -2,18 +2,6 @@
   "version": 1,
   "cards": [
     {
-      "id": "ashfall-sentinel",
-      "image": "cards/ashfall-sentinel.svg",
-      "printImage": "cards/ashfall-sentinel-print.svg",
-      "title": "Ashfall Sentinel",
-      "game": "Fantasy TCG",
-      "style": "Cinematic \u00b7 Ember foil",
-      "caption": "Placeholder sample -- swap in a real curated card via HIRO's Publish to Showcase step.",
-      "socialPostUrl": "",
-      "featured": true,
-      "accent": "#00e5ff"
-    },
-    {
       "id": "wraithbloom",
       "image": "cards/wraithbloom.svg",
       "printImage": "cards/wraithbloom-print.svg",
