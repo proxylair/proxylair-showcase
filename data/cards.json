@@ -2,17 +2,17 @@
   "version": 1,
   "cards": [
     {
-      "id": "nami-zeus-lightning",
-      "image": "cards/nami-zeus-lightning.jpg",
-      "title": "Nami/Zeus Lightning",
+      "id": "luffy-boxing",
+      "image": "cards/luffy-boxing.jpg",
+      "title": "Luffy Boxing",
       "game": "OPTCG",
       "style": "Foil Full Art",
       "caption": "ProxyLair Don"
     },
     {
-      "id": "luffy-boxing",
-      "image": "cards/luffy-boxing.jpg",
-      "title": "Luffy Boxing",
+      "id": "nami-zeus-lightning",
+      "image": "cards/nami-zeus-lightning.jpg",
+      "title": "Nami/Zeus Lightning",
       "game": "OPTCG",
       "style": "Foil Full Art",
       "caption": "ProxyLair Don"
