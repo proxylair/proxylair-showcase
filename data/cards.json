@@ -2,18 +2,6 @@
   "version": 1,
   "cards": [
     {
-      "id": "verdant-hex",
-      "image": "cards/verdant-hex.svg",
-      "printImage": "cards/verdant-hex-print.svg",
-      "title": "Verdant Hex",
-      "game": "Fantasy TCG",
-      "style": "Organic \u00b7 Emerald sheen",
-      "caption": "Placeholder sample -- swap in a real curated card via HIRO's Publish to Showcase step.",
-      "socialPostUrl": "",
-      "featured": false,
-      "accent": "#2dffb3"
-    },
-    {
       "id": "luffy-boxing",
       "image": "cards/luffy-boxing.jpg",
       "title": "Luffy Boxing",
