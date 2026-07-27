@@ -2,17 +2,17 @@
   "version": 1,
   "cards": [
     {
-      "id": "luffy-boxing",
-      "image": "cards/luffy-boxing.jpg",
-      "title": "Luffy Boxing",
+      "id": "zoro-pacifista",
+      "image": "cards/zoro-pacifista.jpg",
+      "title": "Zoro/Pacifista",
       "game": "OPTCG",
       "style": "Foil Full Art",
       "caption": "ProxyLair Don"
     },
     {
-      "id": "zoro-pacifista",
-      "image": "cards/zoro-pacifista.jpg",
-      "title": "Zoro/Pacifista",
+      "id": "luffy-boxing",
+      "image": "cards/luffy-boxing.jpg",
+      "title": "Luffy Boxing",
       "game": "OPTCG",
       "style": "Foil Full Art",
       "caption": "ProxyLair Don"
