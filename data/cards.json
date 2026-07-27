@@ -2,18 +2,6 @@
   "version": 1,
   "cards": [
     {
-      "id": "wraithbloom",
-      "image": "cards/wraithbloom.svg",
-      "printImage": "cards/wraithbloom-print.svg",
-      "title": "Wraithbloom",
-      "game": "Fantasy TCG",
-      "style": "Ethereal \u00b7 Violet gloss",
-      "caption": "Placeholder sample -- swap in a real curated card via HIRO's Publish to Showcase step.",
-      "socialPostUrl": "",
-      "featured": true,
-      "accent": "#ff3d9a"
-    },
-    {
       "id": "stormcallers-oath",
       "image": "cards/stormcallers-oath.svg",
       "printImage": "cards/stormcallers-oath-print.svg",
