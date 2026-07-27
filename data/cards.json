@@ -16,6 +16,14 @@
       "game": "OPTCG",
       "style": "Foil Full Art",
       "caption": "ProxyLair Don"
+    },
+    {
+      "id": "brook-catchphrase",
+      "image": "cards/brook-catchphrase.jpg",
+      "title": "Brook Catchphrase",
+      "game": "OPTCG",
+      "style": "Foil Full Art",
+      "caption": "ProxyLair Don"
     }
   ]
 }
