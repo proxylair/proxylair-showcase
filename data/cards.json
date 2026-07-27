@@ -8,6 +8,14 @@
       "game": "OPTCG",
       "style": "Foil Full Art",
       "caption": "ProxyLair Don"
+    },
+    {
+      "id": "luffy-boxer",
+      "image": "cards/luffy-boxer.jpg",
+      "title": "Luffy Boxer",
+      "game": "OPTCG",
+      "style": "Foil Full Art",
+      "caption": "ProxyLair Don"
     }
   ]
 }
