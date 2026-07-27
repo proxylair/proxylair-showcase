@@ -2,18 +2,6 @@
   "version": 1,
   "cards": [
     {
-      "id": "stormcallers-oath",
-      "image": "cards/stormcallers-oath.svg",
-      "printImage": "cards/stormcallers-oath-print.svg",
-      "title": "Stormcaller's Oath",
-      "game": "Sci-fi TCG",
-      "style": "Dynamic \u00b7 Amber finish",
-      "caption": "Placeholder sample -- swap in a real curated card via HIRO's Publish to Showcase step.",
-      "socialPostUrl": "",
-      "featured": true,
-      "accent": "#ffb84d"
-    },
-    {
       "id": "verdant-hex",
       "image": "cards/verdant-hex.svg",
       "printImage": "cards/verdant-hex-print.svg",
