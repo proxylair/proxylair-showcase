@@ -107,10 +107,45 @@ full manifest, then replace `cards.json`. Never include unfinished,
 customer-private, or uncurated work — this is a deliberate, per-item
 decision each time (ADR-014 2.3), never a blanket sync.
 
-`data/site.json` holds contact links, social links, and optional featured
-video embeds — see the file for the shape. **The social URLs and email in
-there right now are placeholders and must be confirmed before real
-launch**, same caveat ADR-014 itself calls out.
+`data/site.json` holds contact links, social links, optional featured
+video embeds, the hero image, the 8 process-step photos, and affiliate
+links — see the file for the shape. **The social URLs and email in there
+right now are placeholders and must be confirmed before real launch**,
+same caveat ADR-014 itself calls out.
+
+### Hero image, process photos, affiliate links (`data/site.json`)
+
+Unlike the gallery, these are **fixed single slots**, not a dynamic list —
+there's exactly one hero image and exactly 8 process-step images (steps
+are fixed by position, matching the 8 hardcoded step headings in
+`index.html`; only the photo is data-driven, the copy is not).
+
+```json
+{
+  "hero": { "image": "assets/hero/hero.jpg" },
+  "process": [
+    { "step": 1, "image": "assets/process/01.jpg" },
+    { "step": 2, "image": null }
+  ],
+  "affiliateLinks": [
+    { "id": "epson-et-8550", "label": "Epson ET-8550 Printer",
+      "url": "https://affiliate-link.example/printer", "note": "The printer we run every job on" }
+  ]
+}
+```
+
+- `hero.image` — null until a hero photo is published; the page falls
+  back to its original text-only hero when null, so nothing breaks
+  pre-launch.
+- `process[].image` — null per-step until that step's photo is
+  published; a step with no image just shows its existing text card.
+- `affiliateLinks[]` — optional, ordered list of outbound gear
+  recommendations (label, url, optional note). Empty array hides the
+  section entirely. Not a store: no pricing, no cart, no checkout.
+
+Same publish discipline as the gallery: HIRO uploads and optimizes the
+photo, validates the whole `site.json`, then atomic-writes + commits +
+pushes as one transactional unit (`src/services/showcase_service.py`).
 
 ## Deploying to GitHub Pages — your steps
 
@@ -155,8 +190,8 @@ file server.
 
 ## Not in Phase 1 (tracked in ADR-014, not started)
 
-- HIRO's "Publish to Showcase" write path (backend + UI in HIRO itself).
-- The git-commit-to-this-repo push mechanism from HIRO.
-- Real curated gallery content.
+- Real curated gallery content, hero photo, and process photos (the
+  publish pipeline for all three now exists via HIRO; the content itself
+  is still whatever Joshua has published as of a given commit).
 - YouTube/Instagram/TikTok auto-feed (`data/site.json`'s `featuredVideos`
   and `socials` stay manually maintained until those land).

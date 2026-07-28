@@ -1,4 +1,5 @@
 {
+  "version": 1,
   "domain": "proxylair.com",
   "contact": {
     "instagramHandle": "@ProxyLair",
@@ -6,10 +7,60 @@
     "email": "hello@proxylair.com"
   },
   "socials": [
-    { "label": "YouTube", "url": "https://youtube.com/@ProxyLair" },
-    { "label": "Instagram", "url": "https://instagram.com/proxylair" },
-    { "label": "TikTok", "url": "https://tiktok.com/@proxylair" },
-    { "label": "Facebook", "url": "https://facebook.com/ProxyLair" }
+    {
+      "label": "YouTube",
+      "url": "https://youtube.com/@ProxyLair"
+    },
+    {
+      "label": "Instagram",
+      "url": "https://instagram.com/proxylair"
+    },
+    {
+      "label": "TikTok",
+      "url": "https://tiktok.com/@proxylair"
+    },
+    {
+      "label": "Facebook",
+      "url": "https://facebook.com/ProxyLair"
+    }
   ],
-  "featuredVideos": []
+  "featuredVideos": [],
+  "hero": {
+    "image": "assets/hero/hero.jpg"
+  },
+  "process": [
+    {
+      "step": 1,
+      "image": null
+    },
+    {
+      "step": 2,
+      "image": null
+    },
+    {
+      "step": 3,
+      "image": null
+    },
+    {
+      "step": 4,
+      "image": null
+    },
+    {
+      "step": 5,
+      "image": null
+    },
+    {
+      "step": 6,
+      "image": null
+    },
+    {
+      "step": 7,
+      "image": null
+    },
+    {
+      "step": 8,
+      "image": null
+    }
+  ],
+  "affiliateLinks": []
 }

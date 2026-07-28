@@ -180,7 +180,25 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
     var(--bg);
 }
 
-.hero-content { max-width: 680px; }
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.hero-bg.is-visible {
+  opacity: 1;
+  /* White wash + the same radial accent, layered over the photo so hero
+     text stays legible without a separate dark-scrim treatment. */
+  background-image:
+    linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,255,255,0.94)),
+    radial-gradient(ellipse 900px 500px at 50% -10%, var(--accent-soft), transparent),
+    var(--hero-photo-url);
+}
+
+.hero-content { position: relative; max-width: 680px; }
 
 .hero-kicker {
   font-family: var(--sans);
@@ -347,6 +365,14 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   background: var(--bg-alt);
   border-radius: var(--radius-lg);
   padding: 28px 26px;
+  overflow: hidden;
+}
+.process-step-image {
+  display: block;
+  width: calc(100% + 52px);
+  margin: -28px -26px 20px;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
 }
 .process-step .num {
   font-family: var(--serif);
@@ -411,6 +437,36 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
 }
 .social-pill:hover { border-color: var(--accent); color: var(--accent); }
 
+/* ---------- Gear (affiliate links) ---------- */
+
+.gear-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+.gear-link {
+  display: block;
+  padding: 22px 24px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--hairline);
+  background: var(--bg-alt);
+  text-decoration: none;
+  color: var(--ink);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.gear-link:hover { border-color: var(--accent); transform: translateY(-2px); }
+.gear-link .gear-label {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 17px;
+}
+.gear-link .gear-note {
+  margin-top: 6px;
+  font-size: 13.5px;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
 /* ---------- Contact ---------- */
 
 .contact { text-align: center; }
@@ -447,6 +503,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   backdrop-filter: blur(3px);
 }
 .lightbox-overlay.hidden { display: none; }
+.section.hidden { display: none; }
 
 .lightbox-panel {
   max-width: 420px;

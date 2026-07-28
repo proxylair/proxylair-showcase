@@ -23,12 +23,63 @@ Promise.all([
     cardsData = cards.cards || [];
     siteData = site;
     renderGallery();
+    renderHero();
+    renderProcessImages();
     renderWatch();
+    renderGear();
     renderContact();
     renderContactDock();
     renderFooter();
   })
   .catch((err) => console.error("Failed to load showcase data:", err));
+
+// ---------- Hero image ----------
+// Absent/null hero.image leaves the original text-only hero untouched --
+// this is expected pre-launch, not an error state.
+
+function renderHero() {
+  const image = siteData.hero && siteData.hero.image;
+  if (!image) return;
+  const bg = el("hero-bg");
+  bg.style.setProperty("--hero-photo-url", `url("${image}")`);
+  bg.classList.add("is-visible");
+}
+
+// ---------- Process step photos ----------
+// Each step is a fixed slot keyed by position (1-8), matching the
+// hardcoded step copy in index.html -- only the photo is data-driven.
+
+function renderProcessImages() {
+  const steps = siteData.process || [];
+  steps.forEach((step) => {
+    if (!step.image) return;
+    const card = document.querySelector(`.process-step[data-step="${step.step}"]`);
+    if (!card) return;
+    const img = document.createElement("img");
+    img.className = "process-step-image";
+    img.src = step.image;
+    img.alt = card.querySelector("h3")?.textContent || `Process step ${step.step}`;
+    card.insertBefore(img, card.firstChild);
+  });
+}
+
+// ---------- Gear (affiliate links) ----------
+
+function renderGear() {
+  const links = siteData.affiliateLinks || [];
+  if (!links.length) return;
+  el("gear-links").innerHTML = links
+    .map(
+      (l) => `
+    <a class="gear-link" href="${escapeHtml(l.url)}" target="_blank" rel="noopener sponsored">
+      <div class="gear-label">${escapeHtml(l.label)}</div>
+      ${l.note ? `<div class="gear-note">${escapeHtml(l.note)}</div>` : ""}
+    </a>
+  `
+    )
+    .join("");
+  el("gear").classList.remove("hidden");
+}
 
 // ---------- Gallery (flip cards) ----------
 
