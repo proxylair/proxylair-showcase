@@ -152,7 +152,7 @@ function renderContactDock() {
   const contact = siteData.contact || {};
   if (contact.instagramUrl) {
     el("contact-dock").innerHTML =
-      `<a class="btn btn-primary" href="${escapeHtml(contact.instagramUrl)}" target="_blank" rel="noopener">Ask on IG</a>`;
+      `<a class="btn btn-primary" href="${escapeHtml(contact.instagramUrl)}" target="_blank" rel="noopener">Message ProxyLair</a>`;
   }
 }
 
