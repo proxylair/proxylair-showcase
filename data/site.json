@@ -24,7 +24,28 @@
       "url": "https://facebook.com/ProxyLair"
     }
   ],
-  "featuredVideos": [],
+  "featuredVideos": [
+    {
+      "id": "ig-reel-1",
+      "platform": "instagram",
+      "url": "https://www.instagram.com/reel/DaPFhtCM4DP/"
+    },
+    {
+      "id": "yt-short-1",
+      "platform": "youtube",
+      "url": "https://www.youtube.com/shorts/n98oIcmm5Xs"
+    },
+    {
+      "id": "fb-reel-1",
+      "platform": "facebook",
+      "url": "https://www.facebook.com/reel/2008554253100497"
+    },
+    {
+      "id": "tiktok-1",
+      "platform": "tiktok",
+      "url": "https://www.tiktok.com/@proxylair/video/7652347851460054302"
+    }
+  ],
   "hero": {
     "image": "assets/hero/hero.jpg"
   },

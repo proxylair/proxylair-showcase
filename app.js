@@ -1,8 +1,10 @@
 // ProxyLair public showcase (ADR-014). Vanilla JS, no framework, no
 // server runtime, no dependency on HIRO/src/api -- reads two static
-// JSON manifests (data/cards.json, data/site.json) that a future HIRO
-// "Publish to Showcase" step will replace. No page code needs to change
-// when real curated content lands.
+// JSON manifests (data/cards.json, data/site.json) written by HIRO's
+// "Publish to Showcase" step. Shared verbatim across every page
+// (index/gallery/process/watch/gear/about/contact/legal) -- every
+// render function below is null-guarded so it's safe to include on a
+// page that doesn't have the element it targets.
 
 const el = (id) => document.getElementById(id);
 
@@ -33,23 +35,26 @@ Promise.all([
   })
   .catch((err) => console.error("Failed to load showcase data:", err));
 
-// ---------- Hero image ----------
+// ---------- Hero image (index.html only) ----------
 // Absent/null hero.image leaves the original text-only hero untouched --
 // this is expected pre-launch, not an error state.
 
 function renderHero() {
+  const bg = el("hero-bg");
+  if (!bg) return;
   const image = siteData.hero && siteData.hero.image;
   if (!image) return;
-  const bg = el("hero-bg");
   bg.style.setProperty("--hero-photo-url", `url("${image}")`);
   bg.classList.add("is-visible");
 }
 
-// ---------- Process step photos ----------
+// ---------- Process step photos (process.html only) ----------
 // Each step is a fixed slot keyed by position (1-8), matching the
-// hardcoded step copy in index.html -- only the photo is data-driven.
+// hardcoded step copy in process.html -- only the photo is data-driven.
 
 function renderProcessImages() {
+  const anyStepEl = document.querySelector(".process-step");
+  if (!anyStepEl) return;
   const steps = siteData.process || [];
   steps.forEach((step) => {
     if (!step.image) return;
@@ -63,12 +68,17 @@ function renderProcessImages() {
   });
 }
 
-// ---------- Gear (affiliate links) ----------
+// ---------- Gear (affiliate links, gear.html only) ----------
 
 function renderGear() {
+  const container = el("gear-links");
+  if (!container) return;
   const links = siteData.affiliateLinks || [];
-  if (!links.length) return;
-  el("gear-links").innerHTML = links
+  if (!links.length) {
+    container.innerHTML = '<p style="color:var(--ink-muted)">No links added yet.</p>';
+    return;
+  }
+  container.innerHTML = links
     .map(
       (l) => `
     <a class="gear-link" href="${escapeHtml(l.url)}" target="_blank" rel="noopener sponsored">
@@ -78,15 +88,15 @@ function renderGear() {
   `
     )
     .join("");
-  el("gear").classList.remove("hidden");
 }
 
-// ---------- Gallery (flip cards) ----------
+// ---------- Gallery (flip cards, gallery.html only) ----------
 
 function renderGallery() {
   const grid = el("gallery-grid");
+  if (!grid) return;
   if (!cardsData.length) {
-    grid.innerHTML = '<p style="color:var(--text-muted)">No cards published yet.</p>';
+    grid.innerHTML = '<p style="color:var(--ink-muted)">No cards published yet.</p>';
     return;
   }
   grid.innerHTML = cardsData
@@ -135,7 +145,7 @@ function renderGallery() {
   });
 }
 
-// ---------- Lightbox (per-card detail + "watch the build") ----------
+// ---------- Lightbox (per-card detail + "watch the build", gallery.html only) ----------
 
 function openLightbox(card, index) {
   el("lightbox-image").src = card.printImage || card.image;
@@ -159,33 +169,102 @@ function closeLightbox() {
   el("lightbox").classList.add("hidden");
 }
 
-el("lightbox-close").addEventListener("click", closeLightbox);
-el("lightbox").addEventListener("click", (e) => {
-  if (e.target.id === "lightbox") closeLightbox();
-});
-
-// ---------- Watch / content hub ----------
-
-function renderWatch() {
-  const videos = siteData.featuredVideos || [];
-  const first = videos[0];
-  if (first && first.embedUrl) {
-    el("watch-embed").innerHTML = `<iframe src="${escapeHtml(first.embedUrl)}"
-      title="${escapeHtml(first.title || "Featured build")}"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen></iframe>`;
-  }
-  // else: leaves the "No featured video yet" placeholder already in index.html.
-
-  const socials = siteData.socials || [];
-  el("social-links").innerHTML = socials
-    .map((s) => `<a class="social-pill" href="${escapeHtml(s.url)}" target="_blank" rel="noopener">${escapeHtml(s.label)}</a>`)
-    .join("");
+if (el("lightbox-close")) {
+  el("lightbox-close").addEventListener("click", closeLightbox);
+  el("lightbox").addEventListener("click", (e) => {
+    if (e.target.id === "lightbox") closeLightbox();
+  });
 }
 
-// ---------- Contact ----------
+// ---------- Watch / content hub (watch.html only) ----------
+// featuredVideos entries look like { id, platform, url }. Only a plain
+// public post URL is needed per video -- the embeddable iframe src is
+// derived here so nobody has to hand-write embed codes. Platform label
+// is just the platform name (no per-video titles) -- matches the "no
+// catchy titles" requirement directly.
+
+const PLATFORM_LABELS = {
+  youtube: "YouTube",
+  instagram: "Instagram",
+  tiktok: "TikTok",
+  facebook: "Facebook",
+};
+
+function derivePlatform(url) {
+  if (/tiktok\.com/i.test(url)) return "tiktok";
+  if (/instagram\.com/i.test(url)) return "instagram";
+  if (/(youtube\.com|youtu\.be)/i.test(url)) return "youtube";
+  if (/facebook\.com/i.test(url)) return "facebook";
+  return null;
+}
+
+function deriveEmbed(url, platform) {
+  if (platform === "youtube") {
+    const m = url.match(/(?:youtube\.com\/(?:shorts\/|watch\?v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
+    if (!m) return null;
+    return { src: `https://www.youtube.com/embed/${m[1]}`, vertical: /\/shorts\//.test(url) };
+  }
+  if (platform === "tiktok") {
+    const m = url.match(/\/video\/(\d+)/);
+    if (!m) return null;
+    return { src: `https://www.tiktok.com/embed/v2/${m[1]}`, vertical: true };
+  }
+  if (platform === "instagram") {
+    const m = url.match(/instagram\.com\/(p|reel|tv)\/([A-Za-z0-9_-]+)/);
+    if (!m) return null;
+    return { src: `https://www.instagram.com/${m[1]}/${m[2]}/embed`, vertical: true };
+  }
+  if (platform === "facebook") {
+    const clean = url.split("?")[0];
+    return { src: `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(clean)}&show_text=false`, vertical: true };
+  }
+  return null;
+}
+
+function renderWatch() {
+  const container = el("watch-embed");
+  if (container) {
+    const videos = siteData.featuredVideos || [];
+    if (!videos.length) {
+      container.innerHTML = '<p class="watch-empty">No videos added yet.</p>';
+    } else {
+      container.innerHTML = videos
+        .map((v) => {
+          const platform = v.platform || derivePlatform(v.url);
+          const label = PLATFORM_LABELS[platform] || "Video";
+          const embed = deriveEmbed(v.url, platform);
+          if (embed) {
+            return `<div class="watch-item">
+              <div class="watch-frame${embed.vertical ? " is-vertical" : ""}">
+                <iframe src="${escapeHtml(embed.src)}" title="${escapeHtml(label)}" loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+              </div>
+              <p class="watch-label">${escapeHtml(label)}</p>
+            </div>`;
+          }
+          return `<div class="watch-item watch-item-link">
+            <a href="${escapeHtml(v.url)}" target="_blank" rel="noopener">${escapeHtml(label)}</a>
+          </div>`;
+        })
+        .join("");
+    }
+  }
+
+  const socialContainer = el("social-links");
+  if (socialContainer) {
+    const socials = siteData.socials || [];
+    socialContainer.innerHTML = socials
+      .map((s) => `<a class="social-pill" href="${escapeHtml(s.url)}" target="_blank" rel="noopener">${escapeHtml(s.label)}</a>`)
+      .join("");
+  }
+}
+
+// ---------- Contact (contact.html only) ----------
 
 function renderContact() {
+  const container = el("contact-actions");
+  if (!container) return;
   const contact = siteData.contact || {};
   const actions = [];
   if (contact.instagramUrl) {
@@ -196,17 +275,24 @@ function renderContact() {
   if (contact.email) {
     actions.push(`<a class="btn" href="mailto:${escapeHtml(contact.email)}">${escapeHtml(contact.email)}</a>`);
   }
-  el("contact-actions").innerHTML = actions.join("");
+  container.innerHTML = actions.join("");
 }
 
+// ---------- Persistent "Message ProxyLair" CTA (every page) ----------
+
 function renderContactDock() {
+  const dock = el("contact-dock");
+  if (!dock) return;
   const contact = siteData.contact || {};
   if (contact.instagramUrl) {
-    el("contact-dock").innerHTML =
+    dock.innerHTML =
       `<a class="btn btn-primary" href="${escapeHtml(contact.instagramUrl)}" target="_blank" rel="noopener">Message ProxyLair</a>`;
   }
 }
 
+// ---------- Footer (every page) ----------
+
 function renderFooter() {
-  if (siteData.domain) el("footer-domain").textContent = siteData.domain;
+  const domainEl = el("footer-domain");
+  if (domainEl && siteData.domain) domainEl.textContent = siteData.domain;
 }
