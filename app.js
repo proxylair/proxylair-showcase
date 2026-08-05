@@ -204,11 +204,13 @@ function deriveEmbed(url, platform) {
     if (!m) return null;
     return { src: `https://www.youtube.com/embed/${m[1]}`, vertical: /\/shorts\//.test(url) };
   }
-  if (platform === "tiktok") {
-    const m = url.match(/\/video\/(\d+)/);
-    if (!m) return null;
-    return { src: `https://www.tiktok.com/embed/v2/${m[1]}`, vertical: true };
-  }
+  // TikTok's /embed/v2/{id} iframe is TikTok's whole mini post page (header,
+  // like/comment counts, share icon), not a bare video player -- it's meant
+  // to be sized by TikTok's own embed.js, not a fixed CSS box. Loading it
+  // directly in a fixed aspect-ratio frame clips it into a cropped-looking
+  // mess (confirmed on the live site). TikTok's official blockquote +
+  // embed.js method handles sizing itself, so TikTok gets its own render
+  // path in renderVideoItem() below instead of going through this iframe path.
   if (platform === "instagram") {
     const m = url.match(/instagram\.com\/(p|reel|tv)\/([A-Za-z0-9_-]+)/);
     if (!m) return null;
@@ -221,6 +223,50 @@ function deriveEmbed(url, platform) {
   return null;
 }
 
+function renderVideoItem(v) {
+  const platform = v.platform || derivePlatform(v.url);
+  const label = PLATFORM_LABELS[platform] || "Video";
+
+  if (platform === "tiktok") {
+    const m = v.url.match(/\/video\/(\d+)/);
+    if (m) {
+      return `<div class="watch-item">
+        <blockquote class="tiktok-embed" cite="${escapeHtml(v.url)}" data-video-id="${m[1]}" style="max-width: 325px; min-width: 325px;">
+          <section></section>
+        </blockquote>
+        <p class="watch-label">${escapeHtml(label)}</p>
+      </div>`;
+    }
+  }
+
+  const embed = deriveEmbed(v.url, platform);
+  if (embed) {
+    return `<div class="watch-item">
+      <div class="watch-frame${embed.vertical ? " is-vertical" : ""}">
+        <iframe src="${escapeHtml(embed.src)}" title="${escapeHtml(label)}" loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+      <p class="watch-label">${escapeHtml(label)}</p>
+    </div>`;
+  }
+  return `<div class="watch-item watch-item-link">
+    <a href="${escapeHtml(v.url)}" target="_blank" rel="noopener">${escapeHtml(label)}</a>
+  </div>`;
+}
+
+// TikTok's embed.js only scans the DOM for un-rendered .tiktok-embed
+// blockquotes at its own load time. Since our blockquote is inserted
+// dynamically (after any prior load of the script), a fresh script
+// element is appended each time to force a re-scan -- the standard
+// workaround for injecting TikTok embeds into a page after the fact.
+function loadTikTokEmbedScript() {
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = "https://www.tiktok.com/embed.js";
+  document.body.appendChild(script);
+}
+
 function renderWatch() {
   const container = el("watch-embed");
   if (container) {
@@ -228,26 +274,10 @@ function renderWatch() {
     if (!videos.length) {
       container.innerHTML = '<p class="watch-empty">No videos added yet.</p>';
     } else {
-      container.innerHTML = videos
-        .map((v) => {
-          const platform = v.platform || derivePlatform(v.url);
-          const label = PLATFORM_LABELS[platform] || "Video";
-          const embed = deriveEmbed(v.url, platform);
-          if (embed) {
-            return `<div class="watch-item">
-              <div class="watch-frame${embed.vertical ? " is-vertical" : ""}">
-                <iframe src="${escapeHtml(embed.src)}" title="${escapeHtml(label)}" loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen></iframe>
-              </div>
-              <p class="watch-label">${escapeHtml(label)}</p>
-            </div>`;
-          }
-          return `<div class="watch-item watch-item-link">
-            <a href="${escapeHtml(v.url)}" target="_blank" rel="noopener">${escapeHtml(label)}</a>
-          </div>`;
-        })
-        .join("");
+      container.innerHTML = videos.map(renderVideoItem).join("");
+      if (videos.some((v) => (v.platform || derivePlatform(v.url)) === "tiktok")) {
+        loadTikTokEmbedScript();
+      }
     }
   }
 
