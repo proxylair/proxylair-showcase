@@ -214,11 +214,40 @@ function deriveEmbed(url, platform) {
     if (!m) return null;
     return { src: `https://www.instagram.com/${m[1]}/${m[2]}/embed`, vertical: true };
   }
-  if (platform === "facebook") {
-    const clean = url.split("?")[0];
-    return { src: `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(clean)}&show_text=false`, vertical: true };
-  }
+  // Facebook has no reliable static-site embed: Meta's plugins/video.php
+  // iframe frequently renders "This content isn't available right now"
+  // for logged-out viewers (confirmed broken on the live site) -- always
+  // fall through to the link-out card in renderWatch() below instead of
+  // fighting it.
   return null;
+}
+
+function renderVideoItem(v) {
+  const platform = v.platform || derivePlatform(v.url);
+  const label = PLATFORM_LABELS[platform] || "Video";
+  const embed = deriveEmbed(v.url, platform);
+  if (embed) {
+    return `<div class="watch-item">
+      <div class="watch-frame${embed.vertical ? " is-vertical" : ""}">
+        <iframe src="${escapeHtml(embed.src)}" title="${escapeHtml(label)}" loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+      <p class="watch-label">${escapeHtml(label)}</p>
+    </div>`;
+  }
+  if (platform === "facebook") {
+    return `<div class="watch-item">
+      <a class="watch-frame is-vertical watch-linkout" href="${escapeHtml(v.url)}" target="_blank" rel="noopener" aria-label="Watch on Facebook">
+        <svg class="watch-linkout-icon" width="46" height="46" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <span class="watch-linkout-text">Watch on Facebook</span>
+      </a>
+      <p class="watch-label">${escapeHtml(label)}</p>
+    </div>`;
+  }
+  return `<div class="watch-item watch-item-link">
+    <a href="${escapeHtml(v.url)}" target="_blank" rel="noopener">${escapeHtml(label)}</a>
+  </div>`;
 }
 
 function renderWatch() {
@@ -228,26 +257,7 @@ function renderWatch() {
     if (!videos.length) {
       container.innerHTML = '<p class="watch-empty">No videos added yet.</p>';
     } else {
-      container.innerHTML = videos
-        .map((v) => {
-          const platform = v.platform || derivePlatform(v.url);
-          const label = PLATFORM_LABELS[platform] || "Video";
-          const embed = deriveEmbed(v.url, platform);
-          if (embed) {
-            return `<div class="watch-item">
-              <div class="watch-frame${embed.vertical ? " is-vertical" : ""}">
-                <iframe src="${escapeHtml(embed.src)}" title="${escapeHtml(label)}" loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen></iframe>
-              </div>
-              <p class="watch-label">${escapeHtml(label)}</p>
-            </div>`;
-          }
-          return `<div class="watch-item watch-item-link">
-            <a href="${escapeHtml(v.url)}" target="_blank" rel="noopener">${escapeHtml(label)}</a>
-          </div>`;
-        })
-        .join("");
+      container.innerHTML = videos.map(renderVideoItem).join("");
     }
   }
 
