@@ -455,28 +455,6 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
 }
 .watch-item-link a { font-family: var(--serif); font-weight: 600; color: var(--accent); }
 
-/* Facebook link-out fallback (no reliable static embed -- see app.js) */
-.watch-linkout {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  height: 100%;
-  background: linear-gradient(160deg, #1877f2, #0d5bc9);
-  color: #fff;
-  text-decoration: none;
-  transition: opacity 160ms ease, transform 160ms ease;
-}
-.watch-linkout:hover { opacity: 0.88; transform: translateY(-1px); }
-.watch-linkout-icon { opacity: 0.95; }
-.watch-linkout-text {
-  font-family: var(--serif);
-  font-weight: 600;
-  font-size: 15px;
-  letter-spacing: 0.01em;
-}
-
 .social-links {
   display: flex;
   flex-wrap: wrap;
