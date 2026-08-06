@@ -4,7 +4,18 @@
    touch of neon-glow reserved for a handful of interactive moments only
    -- not the pervasive neon-everywhere of the original HIRO-derived
    look. Structure/sections/interactions unchanged -- only palette and
-   header typeface change from the ivory version (kept at /ivory/). */
+   header typeface change from the ivory version (kept at /ivory/).
+
+   Wave 1 motion polish (2026-08): scroll reveals + hero entrance/
+   parallax live in motion.js (GSAP + ScrollTrigger, CDN-loaded, no
+   build step). The CSS-only pieces are here: one shared easing curve
+   used everywhere for consistency (--ease-out, the actual "premium"
+   trick more than any single effect), refined hover transitions, a
+   bolder full-bleed hero, and more generous spacing/type scale. */
+
+@view-transition {
+  navigation: auto;
+}
 
 :root {
   --bg: #ffffff;
@@ -37,6 +48,10 @@
   --radius-md: 8px;
   --radius-sm: 4px;
 
+  /* One consistent "premium snap" easing used across every hover/
+     transition on the site instead of a mix of default eases. */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
   /* Section-heading font: NOT trying to imitate the wordmark's hand-
      lettered flourish (that always reads as a failed copy) -- Playfair
      Display shares the same high-contrast "modern-face"/Didone lineage
@@ -58,6 +73,10 @@ html, body {
   font-family: var(--sans);
   scroll-behavior: smooth;
   overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html, body { scroll-behavior: auto; }
 }
 
 img { max-width: 100%; display: block; }
@@ -122,7 +141,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   color: var(--ink-soft);
   padding-bottom: 2px;
   border-bottom: 1px solid transparent;
-  transition: color 180ms ease, border-color 180ms ease;
+  transition: color 220ms var(--ease-out), border-color 220ms var(--ease-out);
 }
 .nav-links a:hover { color: var(--accent); border-color: var(--accent); }
 
@@ -144,9 +163,10 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   border: 1.5px solid var(--hairline-strong);
   background: var(--surface);
   color: var(--ink);
-  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease, background 180ms ease;
+  transition: border-color 260ms var(--ease-out), box-shadow 260ms var(--ease-out), transform 260ms var(--ease-out), background 260ms var(--ease-out);
 }
-.btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); border-color: var(--ink-muted); }
+.btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); border-color: var(--ink-muted); }
+.btn:active { transform: translateY(0); }
 
 .btn-primary {
   border-color: var(--accent);
@@ -168,13 +188,15 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
 
 .hero {
   position: relative;
-  min-height: 92vh;
+  min-height: 100vh;
+  min-height: 100svh; /* progressive enhancement: ignores mobile browser-chrome jump that plain vh suffers from */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding: 140px 24px 80px;
+  overflow: hidden;
   background:
     radial-gradient(ellipse 900px 500px at 50% -10%, var(--accent-soft), transparent),
     var(--bg);
@@ -182,7 +204,9 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
 
 .hero-bg {
   position: absolute;
-  inset: 0;
+  /* 8% overscan top/bottom so the scroll parallax (motion.js, capped at
+     yPercent 8) never reveals a gap at the edge it shifts away from. */
+  inset: -8% 0;
   background-size: cover;
   background-position: center;
   opacity: 0;
@@ -211,7 +235,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
 }
 
 .hero-wordmark {
-  width: min(88vw, 460px);
+  width: min(90vw, 520px);
   height: auto;
   margin: 0 0 30px;
 }
@@ -247,23 +271,24 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
 .section {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 150px 28px;
+  padding: 180px 28px;
 }
 
-.section-heading { max-width: 620px; margin: 0 0 56px; }
+.section-heading { max-width: 620px; margin: 0 0 72px; }
 .section-heading h2 {
-  font-size: clamp(30px, 4vw, 46px);
-  line-height: 1.16;
+  font-size: clamp(34px, 5vw, 58px);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
   margin: 0 0 20px;
 }
-.section-intro { color: var(--ink-muted); font-size: 16.5px; line-height: 1.65; margin: 0; }
+.section-intro { color: var(--ink-muted); font-size: 17px; line-height: 1.7; margin: 0; }
 
 /* ---------- Gallery ---------- */
 
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 44px;
+  gap: 56px;
 }
 
 .flip-card {
@@ -271,7 +296,9 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   aspect-ratio: 5 / 7.6;
   cursor: pointer;
   position: relative;
+  transition: transform 320ms var(--ease-out);
 }
+.flip-card:hover { transform: translateY(-6px); }
 
 .flip-card-inner {
   position: relative;
@@ -295,7 +322,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   display: flex;
   flex-direction: column;
   padding: 16px 16px 18px;
-  transition: box-shadow 220ms ease, border-color 220ms ease;
+  transition: box-shadow 320ms var(--ease-out), border-color 320ms var(--ease-out);
 }
 /* Second deliberate touch of neon: on hover, the card's own accent
    color (from its own art, not the site theme) takes over as a glow
@@ -349,9 +376,9 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   color: var(--ink-soft);
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
-  transition: color 160ms ease, border-color 160ms ease;
+  transition: color 220ms var(--ease-out), border-color 220ms var(--ease-out), transform 220ms var(--ease-out);
 }
-.card-expand-btn:hover { border-color: var(--accent); color: var(--accent); }
+.card-expand-btn:hover { border-color: var(--accent); color: var(--accent); transform: scale(1.08); }
 
 .gallery-hint {
   font-family: var(--sans);
@@ -367,7 +394,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
 .process-steps {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 24px;
+  gap: 28px;
 }
 .process-step {
   border: 1px solid var(--hairline);
@@ -375,6 +402,12 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   border-radius: var(--radius-lg);
   padding: 28px 26px;
   overflow: hidden;
+  transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out), border-color 320ms var(--ease-out);
+}
+.process-step:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--hairline-strong);
 }
 .process-step-image {
   display: block;
@@ -409,7 +442,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
 .watch-embed {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 28px;
+  gap: 32px;
   margin-bottom: 36px;
 }
 .watch-empty {
@@ -474,16 +507,16 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   font-size: 15px;
   font-weight: 600;
   color: var(--ink-soft);
-  transition: border-color 180ms ease, color 180ms ease;
+  transition: border-color 220ms var(--ease-out), color 220ms var(--ease-out), transform 220ms var(--ease-out);
 }
-.social-pill:hover { border-color: var(--accent); color: var(--accent); }
+.social-pill:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
 /* ---------- Gear (affiliate links) ---------- */
 
 .gear-links {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 18px;
+  gap: 22px;
 }
 .gear-link {
   display: block;
@@ -493,9 +526,9 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   background: var(--bg-alt);
   text-decoration: none;
   color: var(--ink);
-  transition: border-color 0.15s ease, transform 0.15s ease;
+  transition: border-color 300ms var(--ease-out), transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out);
 }
-.gear-link:hover { border-color: var(--accent); transform: translateY(-2px); }
+.gear-link:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: var(--shadow-md); }
 .gear-link .gear-label {
   font-family: var(--serif);
   font-weight: 600;
@@ -675,8 +708,16 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
 /* ---------- Responsive ---------- */
 
 @media (max-width: 640px) {
-  .section { padding: 100px 20px; }
+  .section { padding: 120px 20px; }
+  .section-heading { margin: 0 0 48px; }
   .hero { padding: 120px 20px 60px; }
   .nav { padding: 16px 20px; }
   .nav-links { gap: 16px; font-size: 14px; }
+  .gallery-grid { gap: 36px; }
+  .process-steps { gap: 20px; }
+  /* Hover-only lifts don't apply on touch, and tapping shouldn't leave
+     a card permanently "lifted" from a lingering :hover state. */
+  .flip-card:hover { transform: none; }
+  .process-step:hover { transform: none; box-shadow: none; border-color: var(--hairline); }
+  .gear-link:hover { transform: none; box-shadow: none; }
 }

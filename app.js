@@ -32,6 +32,10 @@ Promise.all([
     renderContact();
     renderContactDock();
     renderFooter();
+    // motion.js listens for this to reveal content rendered from data
+    // (gallery cards, watch items, gear links) that didn't exist in the
+    // DOM yet when it first scanned for reveal targets on page load.
+    document.dispatchEvent(new CustomEvent("showcase:content-ready"));
   })
   .catch((err) => console.error("Failed to load showcase data:", err));
 
