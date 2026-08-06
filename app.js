@@ -291,21 +291,83 @@ function renderWatch() {
 }
 
 // ---------- Contact (contact.html only) ----------
+// mailto: links do nothing on a device with no default mail app
+// configured (common for webmail/Gmail-only users) -- the copy row
+// below is the fallback that works regardless of mail-client setup.
+
+function copyTextToClipboard(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    return navigator.clipboard.writeText(text);
+  }
+  // Fallback for non-secure contexts / browsers without the Clipboard API.
+  return new Promise((resolve, reject) => {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    try {
+      document.execCommand("copy");
+      resolve();
+    } catch (err) {
+      reject(err);
+    } finally {
+      document.body.removeChild(textarea);
+    }
+  });
+}
 
 function renderContact() {
   const container = el("contact-actions");
-  if (!container) return;
   const contact = siteData.contact || {};
-  const actions = [];
-  if (contact.instagramUrl) {
-    actions.push(
-      `<a class="btn btn-primary" href="${escapeHtml(contact.instagramUrl)}" target="_blank" rel="noopener">DM on Instagram</a>`
-    );
+
+  if (container) {
+    const actions = [];
+    if (contact.instagramUrl) {
+      actions.push(
+        `<a class="btn btn-primary" href="${escapeHtml(contact.instagramUrl)}" target="_blank" rel="noopener">DM on Instagram</a>`
+      );
+    }
+    if (contact.email) {
+      actions.push(`<a class="btn" href="mailto:${escapeHtml(contact.email)}">${escapeHtml(contact.email)}</a>`);
+    }
+    container.innerHTML = actions.join("");
   }
-  if (contact.email) {
-    actions.push(`<a class="btn" href="mailto:${escapeHtml(contact.email)}">${escapeHtml(contact.email)}</a>`);
+
+  const copyRow = el("email-copy");
+  if (copyRow && contact.email) {
+    copyRow.innerHTML = `
+      <span class="email-copy-text">${escapeHtml(contact.email)}</span>
+      <button class="email-copy-btn" type="button" aria-label="Copy email address">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+        <span class="email-copy-btn-label">Copy</span>
+      </button>
+      <span class="email-copy-feedback" role="status" aria-live="polite"></span>
+    `;
+    const btn = copyRow.querySelector(".email-copy-btn");
+    const label = copyRow.querySelector(".email-copy-btn-label");
+    const feedback = copyRow.querySelector(".email-copy-feedback");
+    let resetTimer = null;
+    btn.addEventListener("click", () => {
+      copyTextToClipboard(contact.email)
+        .then(() => {
+          label.textContent = "Copied!";
+          feedback.textContent = "Email address copied to clipboard.";
+          btn.classList.add("is-copied");
+        })
+        .catch(() => {
+          feedback.textContent = "Couldn't copy automatically -- select the address above instead.";
+        });
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => {
+        label.textContent = "Copy";
+        feedback.textContent = "";
+        btn.classList.remove("is-copied");
+      }, 2200);
+    });
   }
-  container.innerHTML = actions.join("");
 }
 
 // ---------- Persistent "Message ProxyLair" CTA (every page) ----------
