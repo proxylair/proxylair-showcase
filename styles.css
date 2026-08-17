@@ -124,6 +124,20 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   width: auto;
 }
 
+/* flex-shrink:0 is load-bearing, not decoration: the 6-item .nav-links
+   row's own natural single-line width (~340px) essentially equals the
+   ENTIRE available width of a 375px mobile nav (measured). With the
+   default flex-shrink:1, the browser satisfies that row's demand by
+   crushing THIS item -- the logo -- down toward 0 rendered width first,
+   leaving an invisible, effectively untappable sliver where the home
+   link used to be. That's the actual bug, not just a small tap target;
+   see .nav-links below for the other half of the fix. */
+.nav-home {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
 .nav-links {
   display: flex;
   gap: 32px;
@@ -756,7 +770,26 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   .section-heading { margin: 0 0 48px; }
   .hero { padding: 120px 20px 60px; }
   .nav { padding: 16px 20px; }
-  .nav-links { gap: 16px; font-size: 14px; }
+  /* ~44px minimum tappable area (Apple HIG / WCAG 2.5.5), generous
+     since this is the primary way back to the homepage. Padding grows
+     the hit area itself, not just visual breathing room. */
+  .nav-home { padding: 12px 10px; }
+  /* .nav-home is flex-shrink:0 (see base rule above) and now also
+     carries real padding, so it always keeps its full, comfortable
+     size -- which means this row no longer has room to also render at
+     its natural ~340px single-line width on a ~375px screen. Rather
+     than let the browser silently wrap or crush link text, let it
+     scroll horizontally: every link stays fully legible and reachable,
+     nothing is ever clipped. */
+  .nav-links {
+    gap: 16px;
+    font-size: 14px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
   .gallery-grid { gap: 36px; }
   .process-steps { gap: 20px; }
   /* Hover-only lifts don't apply on touch, and tapping shouldn't leave
