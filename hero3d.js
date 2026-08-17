@@ -249,6 +249,10 @@
     renderer.render(scene, camera);
 
     canvas.classList.add("is-active");
+    // The canvas only paints the extruded logo shape -- everywhere else
+    // is transparent -- so the video must be explicitly hidden here, not
+    // just paused, or its opaque last frame shows through/around it.
+    video.classList.add("is-hidden");
     video.pause();
     running = true;
     tick();
@@ -260,6 +264,7 @@
       running = false;
       if (raf) cancelAnimationFrame(raf);
       canvas.classList.remove("is-active");
+      video.classList.remove("is-hidden");
       video.play().catch(() => {});
     });
 
