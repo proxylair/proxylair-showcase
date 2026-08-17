@@ -9,6 +9,20 @@
 (function () {
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  // Hero wordmark video: plays for everyone except reduced-motion users
+  // (who get the poster PNG, which the <video> already shows natively
+  // when never told to play -- no extra code needed for that fallback).
+  // Runs regardless of whether GSAP loaded, since it doesn't depend on it.
+  const heroVideo = document.getElementById("hero-wordmark-video");
+  if (heroVideo && !prefersReducedMotion) {
+    const tryPlay = () => heroVideo.play().catch(() => {
+      // Autoplay blocked for some reason -- poster stays visible, which
+      // is a legitimate fallback, not a broken state.
+    });
+    if (heroVideo.readyState >= 2) tryPlay();
+    else heroVideo.addEventListener("loadeddata", tryPlay, { once: true });
+  }
+
   if (prefersReducedMotion || typeof gsap === "undefined") {
     return;
   }
