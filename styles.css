@@ -324,6 +324,13 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   box-shadow: 0 0 16px var(--accent-neon-glow);
 }
 
+.hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+}
+
 /* ---------- Section shell ---------- */
 
 .section {
@@ -347,6 +354,68 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 56px;
+}
+
+/* ---------- Homepage proof strip (static preview, not the flip-card gallery) ---------- */
+
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 28px;
+  margin-bottom: 40px;
+}
+.proof-card {
+  margin: 0;
+  border: 1px solid var(--hairline);
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out);
+}
+.proof-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.proof-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 5 / 7.6;
+  object-fit: cover;
+}
+.proof-card figcaption {
+  padding: 14px 16px 18px;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 15px;
+}
+.proof-card figcaption span {
+  display: block;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-top: 4px;
+}
+
+/* ---------- Homepage process strip (condensed version of the Process page) ---------- */
+
+.process-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 6px;
+  margin-bottom: 36px;
+}
+.process-strip span:not(.process-strip-arrow) {
+  border: 1px solid var(--hairline);
+  background: var(--bg-alt);
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 14.5px;
+}
+.process-strip-arrow {
+  color: var(--accent);
+  font-weight: 600;
 }
 
 .flip-card {
@@ -738,6 +807,9 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   border-bottom: 1px solid transparent;
 }
 .footer-legal-links a:hover { color: var(--accent); border-color: var(--accent); }
+.footer-crosslink { font-weight: 600; color: var(--ink-soft); }
+.footer-crosslink a { color: var(--accent); border-bottom: 1px solid transparent; }
+.footer-crosslink a:hover { border-color: var(--accent); }
 
 /* ---------- Long-form prose (philosophy copy, legal pages) ---------- */
 
