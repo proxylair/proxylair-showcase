@@ -32,6 +32,14 @@
       "game": "Custom DON!!",
       "style": "Foil Full Art",
       "caption": "ProxyLair Don"
+    },
+    {
+      "id": "rosi-don",
+      "image": "cards/rosi-don.jpg",
+      "title": "Rosi Don!",
+      "game": "One Piece TCG",
+      "style": "Borderless",
+      "printImage": "cards/rosi-don-print.jpg"
     }
   ]
 }
