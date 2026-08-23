@@ -40,6 +40,328 @@
       "game": "One Piece TCG",
       "style": "Borderless",
       "printImage": "cards/rosi-don-print.jpg"
+    },
+    {
+      "id": "going-merry",
+      "image": "cards/going-merry.jpg",
+      "title": "Going Merry",
+      "game": "One Piece TCG",
+      "style": "Foil Promo"
+    },
+    {
+      "id": "usopp",
+      "image": "cards/usopp.jpg",
+      "title": "Usopp",
+      "game": "One Piece TCG",
+      "style": "Foil Promo"
+    },
+    {
+      "id": "ms-valentine",
+      "image": "cards/ms-valentine.jpg",
+      "title": "Ms. Valentine",
+      "game": "One Piece TCG",
+      "style": "Foil Promo"
+    },
+    {
+      "id": "tony-tony-chopper",
+      "image": "cards/tony-tony-chopper.jpg",
+      "title": "Tony Tony Chopper",
+      "game": "One Piece TCG",
+      "style": "Foil Promo"
+    },
+    {
+      "id": "miss-goldenweek",
+      "image": "cards/miss-goldenweek.jpg",
+      "title": "Miss Goldenweek",
+      "game": "One Piece TCG",
+      "style": "Foil Promo"
+    },
+    {
+      "id": "nefeltari-vivi",
+      "image": "cards/nefeltari-vivi.jpg",
+      "title": "Nefeltari Vivi",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "boa-hancock",
+      "image": "cards/boa-hancock.jpg",
+      "title": "Boa Hancock",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "kalgara",
+      "image": "cards/kalgara.jpg",
+      "title": "Kalgara",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "jewelry-bonney",
+      "image": "cards/jewelry-bonney.jpg",
+      "title": "Jewelry Bonney",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "nico-robin",
+      "image": "cards/nico-robin.jpg",
+      "title": "Nico Robin",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "charlotte-linlin",
+      "image": "cards/charlotte-linlin.jpg",
+      "title": "Charlotte Linlin",
+      "game": "One Piece TCG",
+      "style": "Foil AA"
+    },
+    {
+      "id": "edward-newgate",
+      "image": "cards/edward-newgate.jpg",
+      "title": "Edward Newgate",
+      "game": "One Piece TCG",
+      "style": "Foil AA"
+    },
+    {
+      "id": "imu",
+      "image": "cards/imu.jpg",
+      "title": "Imu",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "portgas-d-ace",
+      "image": "cards/portgas-d-ace.jpg",
+      "title": "Portgas.D.Ace",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "sengoku",
+      "image": "cards/sengoku.jpg",
+      "title": "Sengoku",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "monkey-d-luffy",
+      "image": "cards/monkey-d-luffy.jpg",
+      "title": "Monkey.D.Luffy",
+      "game": "One Piece TCG",
+      "style": "Foil Promo"
+    },
+    {
+      "id": "roronoa-zoro",
+      "image": "cards/roronoa-zoro.jpg",
+      "title": "Roronoa Zoro",
+      "game": "One Piece TCG",
+      "style": "Foil Promo"
+    },
+    {
+      "id": "ms-wednesday",
+      "image": "cards/ms-wednesday.jpg",
+      "title": "Ms. Wednesday",
+      "game": "One Piece TCG",
+      "style": "Foil Promo"
+    },
+    {
+      "id": "sengoku-2",
+      "image": "cards/sengoku-2.jpg",
+      "title": "Sengoku",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "ms-all-sunday",
+      "image": "cards/ms-all-sunday.jpg",
+      "title": "Ms. All Sunday",
+      "game": "One Piece TCG",
+      "style": "Foil Promo"
+    },
+    {
+      "id": "crocodile",
+      "image": "cards/crocodile.jpg",
+      "title": "Crocodile",
+      "game": "One Piece TCG",
+      "style": "Foil Promo"
+    },
+    {
+      "id": "kuzan",
+      "image": "cards/kuzan.jpg",
+      "title": "Kuzan",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "charlotte-linlin-2",
+      "image": "cards/charlotte-linlin-2.jpg",
+      "title": "Charlotte Linlin",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "yamato",
+      "image": "cards/yamato.jpg",
+      "title": "Yamato",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "vinsmoke-reiju",
+      "image": "cards/vinsmoke-reiju.jpg",
+      "title": "Vinsmoke Reiju",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "mr-5",
+      "image": "cards/mr-5.jpg",
+      "title": "Mr. 5",
+      "game": "One Piece TCG",
+      "style": "Foil Promo"
+    },
+    {
+      "id": "trafalgar-law",
+      "image": "cards/trafalgar-law.jpg",
+      "title": "Trafalgar Law",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "roronoa-zoro-2",
+      "image": "cards/roronoa-zoro-2.jpg",
+      "title": "Roronoa Zoro",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "yamato-2",
+      "image": "cards/yamato-2.jpg",
+      "title": "Yamato",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "carrot",
+      "image": "cards/carrot.jpg",
+      "title": "Carrot",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "boa-hancock-2",
+      "image": "cards/boa-hancock-2.jpg",
+      "title": "Boa Hancock",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "shanks",
+      "image": "cards/shanks.jpg",
+      "title": "Shanks",
+      "game": "One Piece TCG",
+      "style": "Foil AA"
+    },
+    {
+      "id": "sanji",
+      "image": "cards/sanji.jpg",
+      "title": "Sanji",
+      "game": "One Piece TCG",
+      "style": "Foil Promo"
+    },
+    {
+      "id": "charlotte-katakuri",
+      "image": "cards/charlotte-katakuri.jpg",
+      "title": "Charlotte Katakuri",
+      "game": "One Piece TCG",
+      "style": "Foil SP AA"
+    },
+    {
+      "id": "dracula-mihawk",
+      "image": "cards/dracula-mihawk.jpg",
+      "title": "Dracula Mihawk",
+      "game": "One Piece TCG",
+      "style": "Foil AA"
+    },
+    {
+      "id": "mr-3",
+      "image": "cards/mr-3.jpg",
+      "title": "Mr. 3",
+      "game": "One Piece TCG",
+      "style": "Foil Promo"
+    },
+    {
+      "id": "sanji-2",
+      "image": "cards/sanji-2.jpg",
+      "title": "Sanji",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "nami",
+      "image": "cards/nami.jpg",
+      "title": "Nami",
+      "game": "One Piece TCG",
+      "style": "Foil Promo"
+    },
+    {
+      "id": "monkey-d-luffy-2",
+      "image": "cards/monkey-d-luffy-2.jpg",
+      "title": "Monkey.D.Luffy",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "trafalgar-law-2",
+      "image": "cards/trafalgar-law-2.jpg",
+      "title": "Trafalgar Law",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "enel-gold-don",
+      "image": "cards/enel-gold-don.jpg",
+      "title": "Enel Gold Don!",
+      "game": "One Piece TCG",
+      "style": "Gold Don!"
+    },
+    {
+      "id": "crocodile-2",
+      "image": "cards/crocodile-2.jpg",
+      "title": "Crocodile",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "kaido",
+      "image": "cards/kaido.jpg",
+      "title": "Kaido",
+      "game": "One Piece TCG",
+      "style": "Foil AA"
+    },
+    {
+      "id": "monkey-d-luffy-3",
+      "image": "cards/monkey-d-luffy-3.jpg",
+      "title": "Monkey.D.Luffy",
+      "game": "One Piece TCG",
+      "style": "Foil AA"
+    },
+    {
+      "id": "perona",
+      "image": "cards/perona.jpg",
+      "title": "Perona",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
+    },
+    {
+      "id": "donquixote-rosinante",
+      "image": "cards/donquixote-rosinante.jpg",
+      "title": "Donquixote Rosinante",
+      "game": "One Piece TCG",
+      "style": "Custom Foil AA"
     }
   ]
 }
