@@ -52,7 +52,7 @@
   "process": [
     {
       "step": 1,
-      "image": null
+      "image": "assets/process/01.jpg"
     },
     {
       "step": 2,
