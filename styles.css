@@ -356,6 +356,60 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   gap: 56px;
 }
 
+.gallery-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  margin: 0 0 48px;
+}
+.filter-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.filter-label {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-right: 2px;
+}
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.filter-chip {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 16px;
+  border-radius: 999px;
+  border: 1.5px solid var(--hairline-strong);
+  background: var(--surface);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: border-color 220ms var(--ease-out), color 220ms var(--ease-out), background 220ms var(--ease-out), transform 220ms var(--ease-out);
+}
+.filter-chip:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+.filter-chip.is-active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fbf8ff;
+}
+
+.gallery-empty {
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--ink-muted);
+  text-align: center;
+  margin: 40px 0;
+}
+.gallery-empty.hidden { display: none; }
+
 /* ---------- Homepage proof strip (static preview, not the flip-card gallery) ---------- */
 
 .proof-grid {
@@ -1037,6 +1091,8 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; color: var(
   }
   .nav-links::-webkit-scrollbar { display: none; }
   .gallery-grid { gap: 36px; }
+  .gallery-filters { gap: 20px; margin-bottom: 32px; }
+  .filter-chip:hover { transform: none; }
   .process-steps { gap: 20px; }
   .learn-grid { gap: 16px; }
   .learn-card:hover { transform: none; box-shadow: none; border-color: var(--hairline); }

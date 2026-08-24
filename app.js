@@ -95,7 +95,14 @@ function renderGear() {
     .join("");
 }
 
-// ---------- Gallery (flip cards, gallery.html only) ----------
+// ---------- Gallery (flip cards + filters, gallery.html only) ----------
+// Filters are built from whatever "game" / "style" values actually show up
+// in cards.json (not a hardcoded list), so a newly published card with a
+// new style automatically gets its own filter chip. "Plate No." stays tied
+// to each card's original position in cards.json even when filtered, so
+// the numbering never shifts around as filters change.
+
+const galleryFilters = { game: "all", style: "all" };
 
 function renderGallery() {
   const grid = el("gallery-grid");
@@ -104,9 +111,71 @@ function renderGallery() {
     grid.innerHTML = '<p style="color:var(--ink-muted)">No cards published yet.</p>';
     return;
   }
-  grid.innerHTML = cardsData
+  buildGalleryFilters();
+  renderGalleryGrid();
+}
+
+function buildGalleryFilters() {
+  const filtersEl = el("gallery-filters");
+  if (!filtersEl) return;
+
+  const games = [];
+  const styles = [];
+  cardsData.forEach((c) => {
+    if (c.game && !games.includes(c.game)) games.push(c.game);
+    if (c.style && !styles.includes(c.style)) styles.push(c.style);
+  });
+
+  function chipGroup(label, groupKey, values) {
+    const chips = ["all", ...values]
+      .map((v) => {
+        const isActive = galleryFilters[groupKey] === v;
+        const chipLabel = v === "all" ? "All" : v;
+        return `<button type="button" class="filter-chip${isActive ? " is-active" : ""}" data-group="${groupKey}" data-value="${escapeHtml(v)}">${escapeHtml(chipLabel)}</button>`;
+      })
+      .join("");
+    return `
+      <div class="filter-group">
+        <span class="filter-label">${escapeHtml(label)}</span>
+        <div class="filter-chips">${chips}</div>
+      </div>
+    `;
+  }
+
+  filtersEl.innerHTML = chipGroup("Game", "game", games) + chipGroup("Finish", "style", styles);
+
+  filtersEl.querySelectorAll(".filter-chip").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const group = btn.dataset.group;
+      const value = btn.dataset.value;
+      if (galleryFilters[group] === value) return;
+      galleryFilters[group] = value;
+      filtersEl
+        .querySelectorAll(`.filter-chip[data-group="${group}"]`)
+        .forEach((b) => b.classList.toggle("is-active", b.dataset.value === value));
+      renderGalleryGrid();
+    });
+  });
+}
+
+function renderGalleryGrid() {
+  const grid = el("gallery-grid");
+  const emptyMsg = el("gallery-empty");
+  if (!grid) return;
+
+  const visible = cardsData
+    .map((c, i) => ({ card: c, index: i }))
+    .filter(({ card }) => {
+      const gameMatch = galleryFilters.game === "all" || card.game === galleryFilters.game;
+      const styleMatch = galleryFilters.style === "all" || card.style === galleryFilters.style;
+      return gameMatch && styleMatch;
+    });
+
+  if (emptyMsg) emptyMsg.classList.toggle("hidden", visible.length > 0);
+
+  grid.innerHTML = visible
     .map(
-      (c, i) => `
+      ({ card: c, index: i }) => `
     <div class="flip-card" style="--card-accent:${escapeHtml(c.accent || "#6d28d9")}" data-index="${i}">
       <span class="plate-number">Plate&nbsp;No.&nbsp;${String(i + 1).padStart(2, "0")}</span>
       <button class="card-expand-btn" data-index="${i}" aria-label="View details" type="button">
@@ -148,6 +217,11 @@ function renderGallery() {
       openLightbox(cardsData[index], index);
     });
   });
+
+  // Newly-rendered cards are fresh DOM nodes motion.js hasn't seen yet --
+  // re-fire the same event app.js dispatches on first load so they get
+  // their scroll-reveal treatment instead of just popping in.
+  document.dispatchEvent(new CustomEvent("showcase:content-ready"));
 }
 
 // ---------- Lightbox (per-card detail + "watch the build", gallery.html only) ----------
