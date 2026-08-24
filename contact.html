@@ -29,6 +29,8 @@
       <a href="process.html">Process</a>
       <a href="watch.html">Watch</a>
       <a href="gear.html">Gear</a>
+      <a href="learn.html">Learn</a>
+      <a href="faq.html">FAQ</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
     </div>
@@ -38,6 +40,72 @@
     <p class="eyebrow">Contact</p>
     <h2>Contact</h2>
     <p class="section-intro" style="margin: 0 auto;">Have a card or project in mind? Send me a message.</p>
+
+    <div class="brief-builder" id="brief-builder">
+      <p class="brief-builder-intro">Not sure what to say? Fill in what you know and this'll put a message together for you below — nothing here gets submitted anywhere, it just builds the text for you to send however you'd like.</p>
+
+      <div class="brief-fields">
+        <label class="brief-field">
+          <span>What kind of project?</span>
+          <select id="pb-type">
+            <option value="">Not sure yet</option>
+            <option value="Single card">Single card</option>
+            <option value="Leader or character card">Leader or character card</option>
+            <option value="DON!! card">DON!! card</option>
+            <option value="Token">Token</option>
+            <option value="Full custom deck">Full custom deck</option>
+            <option value="Something else">Something else</option>
+          </select>
+        </label>
+
+        <label class="brief-field">
+          <span>Standard or foil?</span>
+          <select id="pb-finish">
+            <option value="">Not sure yet</option>
+            <option value="Standard">Standard</option>
+            <option value="Foil">Foil</option>
+          </select>
+        </label>
+
+        <label class="brief-field">
+          <span>How many cards?</span>
+          <select id="pb-quantity">
+            <option value="">Not sure yet</option>
+            <option value="Just 1">Just 1</option>
+            <option value="2–5">2–5</option>
+            <option value="6–20">6–20</option>
+            <option value="A full deck">A full deck</option>
+          </select>
+        </label>
+
+        <label class="brief-field">
+          <span>Do you already have artwork?</span>
+          <select id="pb-artwork">
+            <option value="">Not sure yet</option>
+            <option value="Yes, I'll send it">Yes, I'll send it</option>
+            <option value="I have a reference but need custom art">I have a reference but need custom art</option>
+            <option value="No, starting from scratch">No, starting from scratch</option>
+          </select>
+        </label>
+
+        <label class="brief-field brief-field-wide">
+          <span>Reference, inspiration, or anything else worth knowing</span>
+          <textarea id="pb-notes" rows="3" placeholder="A character, a card, a link, a vibe — whatever you've got."></textarea>
+        </label>
+      </div>
+
+      <div class="brief-preview-wrap">
+        <p class="brief-preview-label">Your message so far</p>
+        <textarea id="pb-preview" class="brief-preview" rows="6" readonly></textarea>
+        <div class="brief-preview-actions">
+          <button type="button" class="btn" id="pb-copy">Copy message</button>
+          <a class="btn" id="pb-email-link" href="#">Email this</a>
+          <span class="brief-copy-feedback" id="pb-copy-feedback" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+    </div>
+
+    <p class="brief-send-line">Ready to send it? Paste it into a DM or use the email button — whichever's easier.</p>
     <div class="contact-actions" id="contact-actions"></div>
     <div class="email-copy" id="email-copy"></div>
   </section>

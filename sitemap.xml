@@ -26,6 +26,56 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://proxylair.com/learn.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://proxylair.com/learn-how-proxy-cards-are-made.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://proxylair.com/learn-standard-vs-foil-proxy-cards.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://proxylair.com/learn-what-makes-a-good-proxy-card.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://proxylair.com/learn-how-i-print-custom-trading-cards.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://proxylair.com/learn-epson-et-8550-for-custom-trading-cards.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://proxylair.com/learn-how-foil-trading-cards-are-made.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://proxylair.com/learn-designing-a-custom-don-card.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://proxylair.com/learn-how-to-prepare-artwork-for-a-custom-trading-card.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://proxylair.com/faq.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://proxylair.com/about.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

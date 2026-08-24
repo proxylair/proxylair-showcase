@@ -30,6 +30,7 @@ Promise.all([
     renderWatch();
     renderGear();
     renderContact();
+    renderProjectBrief();
     renderContactDock();
     renderFooter();
     // motion.js listens for this to reveal content rendered from data
@@ -372,6 +373,78 @@ function renderContact() {
       }, 2200);
     });
   }
+}
+
+// ---------- Project-brief builder (contact.html only) ----------
+// Purely client-side, no submission anywhere -- it just assembles a
+// plain-text message from the selected fields so a visitor doesn't have
+// to figure out what to say from a blank box. "Copy message" and the
+// mailto: link below both just read the same generated text.
+
+function buildBriefText() {
+  const type = el("pb-type") ? el("pb-type").value : "";
+  const finish = el("pb-finish") ? el("pb-finish").value : "";
+  const quantity = el("pb-quantity") ? el("pb-quantity").value : "";
+  const artwork = el("pb-artwork") ? el("pb-artwork").value : "";
+  const notes = el("pb-notes") ? el("pb-notes").value.trim() : "";
+
+  const lines = ["Hi! I'd like to start a project."];
+  if (type) lines.push(`Type: ${type}`);
+  if (finish) lines.push(`Finish: ${finish}`);
+  if (quantity) lines.push(`Quantity: ${quantity}`);
+  if (artwork) lines.push(`Artwork: ${artwork}`);
+  if (notes) lines.push("", `Reference/inspiration: ${notes}`);
+  if (lines.length === 1) {
+    lines.push("", "(Fill in a few details above and this'll fill itself in -- or just send this as-is and we'll talk it through.)");
+  }
+  return lines.join("\n");
+}
+
+function renderProjectBrief() {
+  const preview = el("pb-preview");
+  if (!preview) return; // not on this page
+
+  const fieldIds = ["pb-type", "pb-finish", "pb-quantity", "pb-artwork", "pb-notes"];
+  const emailLink = el("pb-email-link");
+  const contact = siteData.contact || {};
+
+  function update() {
+    const text = buildBriefText();
+    preview.value = text;
+    if (emailLink && contact.email) {
+      const subject = encodeURIComponent("Custom card project");
+      const body = encodeURIComponent(text);
+      emailLink.href = `mailto:${contact.email}?subject=${subject}&body=${body}`;
+    }
+  }
+
+  fieldIds.forEach((id) => {
+    const field = el(id);
+    if (field) field.addEventListener("input", update);
+  });
+
+  const copyBtn = el("pb-copy");
+  const feedback = el("pb-copy-feedback");
+  if (copyBtn) {
+    let resetTimer = null;
+    copyBtn.addEventListener("click", () => {
+      copyTextToClipboard(preview.value)
+        .then(() => {
+          if (feedback) feedback.textContent = "Copied to clipboard.";
+          copyBtn.textContent = "Copied!";
+        })
+        .catch(() => {
+          if (feedback) feedback.textContent = "Couldn't copy automatically -- select the text above instead.";
+        });
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => {
+        copyBtn.textContent = "Copy message";
+        if (feedback) feedback.textContent = "";
+      }, 2200);
+    });
+  }
+
+  update();
 }
 
 // ---------- Persistent "Message ProxyLair" CTA (every page) ----------
