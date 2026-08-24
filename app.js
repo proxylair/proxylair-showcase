@@ -115,11 +115,19 @@ function renderGallery() {
   renderGalleryGrid();
 }
 
+// The games ProxyLair takes commissions for -- shown as filter options even
+// on days the gallery has zero published photos for one of them yet, so the
+// filter reflects what we build, not just what happens to be photographed
+// right now. Any other game value that shows up in cards.json (a new game
+// added down the road) still gets its own chip automatically, appended
+// after these three.
+const CORE_GAMES = ["Magic", "Pokemon", "One Piece TCG"];
+
 function buildGalleryFilters() {
   const filtersEl = el("gallery-filters");
   if (!filtersEl) return;
 
-  const games = [];
+  const games = [...CORE_GAMES];
   const styles = [];
   cardsData.forEach((c) => {
     if (c.game && !games.includes(c.game)) games.push(c.game);
