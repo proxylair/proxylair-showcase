@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://proxylair.com/sitemap.xml
