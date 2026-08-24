@@ -187,7 +187,7 @@ function renderGalleryGrid() {
         <div class="flip-card-face flip-card-front">
           <img src="${escapeHtml(c.image)}" alt="${escapeHtml(c.title)}" />
           <div class="card-meta">
-            <div class="title">${escapeHtml(c.title)}</div>
+            <a class="title card-detail-link" href="gallery-${escapeHtml(c.id)}.html">${escapeHtml(c.title)}</a>
             <div class="sub">${escapeHtml(c.game)} · ${escapeHtml(c.style)}</div>
           </div>
         </div>
@@ -206,7 +206,7 @@ function renderGalleryGrid() {
 
   grid.querySelectorAll(".flip-card").forEach((node) => {
     node.addEventListener("click", (e) => {
-      if (e.target.closest(".card-expand-btn")) return;
+      if (e.target.closest(".card-expand-btn") || e.target.closest(".card-detail-link")) return;
       node.classList.toggle("is-flipped");
     });
   });
@@ -233,6 +233,9 @@ function openLightbox(card, index) {
   el("lightbox-title").textContent = card.title;
   el("lightbox-sub").textContent = `${card.game} · ${card.style}`;
   el("lightbox-caption").textContent = card.caption || "";
+
+  const detailLink = el("lightbox-detail-link");
+  if (detailLink && card.id) detailLink.href = `gallery-${card.id}.html`;
 
   const link = el("lightbox-watch-link");
   if (card.socialPostUrl) {
